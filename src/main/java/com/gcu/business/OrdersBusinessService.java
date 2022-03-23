@@ -3,12 +3,19 @@ package com.gcu.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.gcu.model.OrderModel;
 
 public class OrdersBusinessService implements OrdersBusinessInterface {
 
+	//For the logger
+	private static final Logger logger = LoggerFactory.getLogger(OrdersBusinessService.class);
+	
 	@Override
-	public void test() {
+	public void test() 
+	{
 		// TODO Auto-generated method stub
 		System.out.print("Hello\n");
 
@@ -22,6 +29,8 @@ public class OrdersBusinessService implements OrdersBusinessInterface {
 		orders.add(new OrderModel(2L, "0000000003", "Product 1", 3.00f, 3));
 		orders.add(new OrderModel(3L, "0000000004", "Product 1", 4.00f, 4));
 		orders.add(new OrderModel(4L, "0000000005", "Product 1", 5.00f, 5));
+		
+		logger.info("Amount of orders put in list are " + orders.size());
 		
 		return orders;
 	}

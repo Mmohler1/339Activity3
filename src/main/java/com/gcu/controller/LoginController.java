@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,10 @@ import org.springframework.validation.BindingResult;
 @RequestMapping("/login")
 public class LoginController 
 {
+	
+	//For the logger
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@Autowired
 	private OrdersBusinessInterface service;
 	
@@ -44,6 +50,7 @@ public class LoginController
 		//Check for Validation
 		if(bindingResult.hasErrors())
 		{
+			logger.warn("Errors in found in validation");
 			model.addAttribute("title", "Login Form");
 			return "login";
 		}
@@ -55,10 +62,12 @@ public class LoginController
 		model.addAttribute("title", "My Orders");
 		model.addAttribute("orders", orders);
 		
+		logger.trace("Test Security Service");
 		//Implements security and Service
 		service.test();
 		security.authenticate(loginModel.getUsername(), loginModel.getPassword());
 		
+		logger.info("Orders page being returned");
 		//Go to Orders Page
 		return "orders";
 		
